@@ -10,8 +10,8 @@ clc
 
 % load in the songs
 % you will see that in Matlab songs are just like vectors
-[song1,Fs1] = audioread('jumbled-song.mp3');
-[song2,Fs2] = audioread('other-song.mp3');
+[song1,Fs1] = audioread('jumbled_song.wav');
+[song2,Fs2] = audioread('song2.wav');
 
 % you should notice that song1 and song2 are both matrices
 % the first dimension is the length of the song (number of samples)
@@ -24,7 +24,7 @@ clc
 % correctly
 
 % You can listen to the songs using the sound command:
-sound(jumbled-song,Fs1);
+sound(song1,Fs1);
 
 % That sounds like a pack of hyenas!
 
@@ -40,11 +40,13 @@ clean_song = unjumble_my_song(song1,song2,Fs1,Fs2);
 % let's listen to it!
 sound(clean_song,Fs1);
 
-% it still doesn't sound great. I think there's some noise on top of it.
-% Let's try and remove it..
 
+% I wonder what on earth the second song is?
+load('song2');
+sound(song2,Fs2);
+% you can't tell because there's some sort of noise on top of it
 
-%% challenge 2: make the song sound even better
+%% challenge 2: remove the noise from song 2
 % I know the noise is probably shaped like a sin wave at a particular
 % frequency
 
@@ -57,18 +59,13 @@ sound(clean_song,Fs1);
 % HINT there is a function to caluclate the lenght of a vector
 L = 
 
-% 2. What is the period of my song? Call it T
-% HINT period is the inverse of sampling frequency
-% so 1 / (sampling frequency)
-T = 
-
 % now I know all the possible song frequencies because
 % the highest possible frequency is half the sampling frequency
-frequency = Fs1*(0:L/2)/L;
+frequency = Fs2*(0:L/2-1)/L;
 
 % I can look at the frequency content of the song useing a command called
-% the fast fourier transform
-song_frequencies = fft(clean_song);
+% the fast fourier transform (and only look at one channel)
+song_frequencies = fft(song2(:,1));
 
 % I only need the first half of the frequency info (the second half is
 % actually just a copy of the same information)
@@ -87,7 +84,7 @@ figure;
 
 % The noise will look like a very clear spike in the signal. It is probably
 % at quite a high frequency.. 
-% fill in the frequency where you can see the spike
+% fill in the frequency where you can see the largest spike
 noise_freq = 
 % HINT you can use the cursor to click the signal and it will tell you the
 % x value (frequency) at that point
@@ -96,10 +93,14 @@ noise_freq =
 % frequency
 
 % test your function
-cleaner_song = remove_noise(song1,Fs1,noise_freq);
+% noise amplitude is the size of the noise
+% i'm going to let you know that it is 5!
+noise_amp = 5;
+clean_song2 = remove_noise_ans(song2,Fs2,noise_freq,noise_amp);
 
 
 %% the end
+sound(clean_song2,Fs2);
 % bonus - what is my brothers fave song?
 
 % double bonus - sing the next line of my brothers fave song
