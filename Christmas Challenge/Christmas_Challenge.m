@@ -10,17 +10,26 @@ clc
 
 % load in the songs
 % you will see that in Matlab songs are just like vectors
-load('jumbled-song.mp3');
-load('hip-hop.mp3');
+[song1,Fs1] = audioread('jumbled-song.mp3');
+[song2,Fs2] = audioread('other-song.mp3');
 
-% you can listen to them using the sound function, but you will need to
-% know the sampling frequencies to play it in the right time
-Fs1 = 44100;
-Fs2 = 22050;
+% you should notice that song1 and song2 are both matrices
+% the first dimension is the length of the song (number of samples)
+% the second dimension is the number of channels (L & R speaker)
+% that means you will need to write your code to do the left channel and
+% the right channel
 
+% Fs1 and Fs2 are the sampling frequency of the song (the number of data
+% points per second). You will need this information to play the songs
+% correctly
+
+% You can listen to the songs using the sound command:
 sound(jumbled-song,Fs1);
 
 % That sounds like a pack of hyenas!
+
+% HINT type 'clear sound' into the command window to stop a song from
+% playing immediately
 
 %% challenge 1: make the song sound good
 % I was trying to record my favourite christmas song but my annoying
