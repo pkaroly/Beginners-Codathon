@@ -36,7 +36,7 @@ sound(song1,Fs1);
 % brother kept playing his fave song over the top of my recording 
 % write a function to help me remove the other song!
 
-clean_song = unjumble_my_song(song1,song2,Fs1,Fs2);
+clean_song = unjumble_my_song_ans(song1,song2,Fs1,Fs2);
 % let's listen to it!
 sound(clean_song,Fs1);
 
